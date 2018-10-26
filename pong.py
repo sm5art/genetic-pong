@@ -87,8 +87,12 @@ def play():
 			if i%25 == 0:
 				pygame.draw.rect(screen,(255,255,255),(WIDTH/2-2,i,4,10))
 		
-		one.move()
 		two.move()
+		if random.randint(0,1) == 0:
+			one._move_up()
+		else:
+			one._move_down()
+		one._draw()
 		ball.move()
 
 		

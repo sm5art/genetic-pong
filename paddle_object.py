@@ -16,30 +16,31 @@ class paddle(object):
 		self.screen = screen
 		self.speed = speed
 
-		
+	def _draw(self):
+		pygame.draw.rect(self.screen,(255,255,255),[self.x,self.y,self.width,self.length])
 
+	def _move_down(self):
+		if self.y+self.length<=HEIGHT:
+			self.y += self.speed
+		
+	def _move_up(self):
+		if self.y>=0:
+			self.y -= self.speed
 
 	def move(self):
 		keys = pygame.key.get_pressed()
 
 		if self.player == 'one':
-			if keys[pygame.K_UP]:
-				if self.y>=0:
-					self.y -= self.speed
-			if keys[pygame.K_DOWN]:
-				if self.y+self.length<=HEIGHT:
-					self.y += self.speed
-		if self.player == 'two':
+			if keys[pygame.K_i]:
+				self._move_up()
+			elif keys[pygame.K_k]:
+				self._move_down()
+		elif self.player == 'two':
 			if keys[pygame.K_w]:
-				if self.y>=0:
-					self.y -= self.speed
-			if keys[pygame.K_s]:
-				if self.y+self.length<=HEIGHT:
-					self.y += self.speed
-
-		pygame.draw.rect(self.screen,(255,255,255),[self.x,self.y,self.width,self.length])
-		#pygame.draw.ellipse(self.screen, (255,255,255), [self.x,self.y,self.width,self.length])
-
+				self._move_up()
+			elif keys[pygame.K_s]:
+				self._move_down()
+		self._draw()
 
 		
 
