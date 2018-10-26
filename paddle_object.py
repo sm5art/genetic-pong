@@ -15,6 +15,7 @@ class paddle(object):
 		self.player = player
 		self.screen = screen
 		self.speed = speed
+		self.config = {'one': {'w': pygame.K_i, 's': pygame.K_k}, 'two': {'w':pygame.K_w, 's':pygame.K_s }}
 
 	def _draw(self):
 		pygame.draw.rect(self.screen,(255,255,255),[self.x,self.y,self.width,self.length])
@@ -24,23 +25,19 @@ class paddle(object):
 			self.y += self.speed
 		
 	def _move_up(self):
-		if self.y>=0:
+		if self.y >= 0:
 			self.y -= self.speed
 
-	def move(self):
+	def move_kb(self):
 		keys = pygame.key.get_pressed()
-
-		if self.player == 'one':
-			if keys[pygame.K_i]:
-				self._move_up()
-			elif keys[pygame.K_k]:
-				self._move_down()
-		elif self.player == 'two':
-			if keys[pygame.K_w]:
-				self._move_up()
-			elif keys[pygame.K_s]:
-				self._move_down()
+		if keys[self.config[self.player]['w']]:
+			self._move_up()
+		elif keys[self.config[self.player]['s']]:
+			self._move_down()
 		self._draw()
+
+	def move_ai(self):
+		self.move_kb()
 
 		
 

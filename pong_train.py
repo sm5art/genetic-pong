@@ -17,7 +17,7 @@ MAXBOUNCEANGLE = math.pi/4
 MAXSPEED = 10
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 
-one = paddle(screen,WIDTH-SPACING-P_WIDTH,HEIGHT/2-P_LENGTH/2,P_LENGTH,P_WIDTH,'one',P_SPEED)
+one = paddle(screen,WIDTH-SPACING-P_WIDTH,HEIGHT/2-P_LENGTH/2,HEIGHT,P_WIDTH,'one',P_SPEED)
 two = paddle(screen,SPACING,HEIGHT/2-P_LENGTH/2,P_LENGTH,P_WIDTH,'two',P_SPEED)
 ball = Ball(screen,WIDTH/2,HEIGHT/2,20,50,50)
 
@@ -52,9 +52,7 @@ def reset(x,bool):
 		ball.y_speed = random.choice([-5,5])
 
 	if bool:
-		one.x=WIDTH-SPACING-P_WIDTH
 		two.x=SPACING
-		one.y=HEIGHT/2-P_LENGTH/2
 		two.y=HEIGHT/2-P_LENGTH/2
 
 def win(player):
@@ -71,6 +69,9 @@ def win(player):
 
 def play():
 	reset(random.choice([True,False]),True)
+
+	one.y=0
+	one.x=WIDTH-SPACING-P_WIDTH
 	one_pt = 0
 	two_pt = 0
 
@@ -87,26 +88,28 @@ def play():
 			if i%25 == 0:
 				pygame.draw.rect(screen,(255,255,255),(WIDTH/2-2,i,4,10))
 		
-		two.move_kb()
-		one.move_kb()
+		two.move_ai()
 		"""if random.randint(0,1) == 0:
 			one._move_up()
 		else:
 			one._move_down()
 		one._draw()"""
+		one._draw()
 		ball.move()
 
 		
-		#if ball touches left wall
+		#if ball touches left wall, ba
 		if (ball.x <= 0):
-			two_score.play()
-			two_pt+=1
+
+			#two_score.play()
+			#two_pt+=1
 			reset(False,False)
 
 		#if ball touches right wall
 		if (ball.x+ball.size >= WIDTH):
-			one_score.play()
-			one_pt+=1
+
+			#one_score.play()
+			#one_pt+=1
 			reset(False,False)  
 		
 
