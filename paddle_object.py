@@ -20,13 +20,13 @@ class paddle(object):
 	def _draw(self):
 		pygame.draw.rect(self.screen,(255,255,255),[self.x,self.y,self.width,self.length])
 
-	def _move_down(self):
+	def _move_down(self, multiplier=1):
 		if self.y+self.length<=HEIGHT:
-			self.y += self.speed
+			self.y += multiplier*self.speed
 		
-	def _move_up(self):
+	def _move_up(self, multiplier=1):
 		if self.y >= 0:
-			self.y -= self.speed
+			self.y -= multiplier*self.speed
 
 	def move_kb(self):
 		keys = pygame.key.get_pressed()
@@ -38,9 +38,9 @@ class paddle(object):
 
 	def move_ai(self, ball):
 		if ball.y > self.y:
-			self._move_down()
+			self._move_down(multiplier=0.25)
 		elif ball.y < self.y:
-			self._move_up()
+			self._move_up(multiplier=0.25)
 
 		self._draw()
 
