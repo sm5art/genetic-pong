@@ -36,8 +36,14 @@ class paddle(object):
 			self._move_down()
 		self._draw()
 
-	def move_ai(self):
-		self.move_kb()
+	def move_ai(self, ball):
+		if ball.y > self.y:
+			self._move_down()
+		elif ball.y < self.y:
+			self._move_up()
+
+		self._draw()
+
 
 		
 

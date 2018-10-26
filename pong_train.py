@@ -74,7 +74,6 @@ def play():
 	one.x=WIDTH-SPACING-P_WIDTH
 	one_pt = 0
 	two_pt = 0
-
 	while True:
 		for event in pygame.event.get():
 			if event.type == QUIT:
@@ -100,7 +99,6 @@ def play():
 		
 		#if ball touches left wall, ba
 		if (ball.x <= 0):
-
 			#two_score.play()
 			#two_pt+=1
 			reset(False,False)
