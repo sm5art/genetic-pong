@@ -20,7 +20,7 @@ screen = pygame.display.set_mode((WIDTH,HEIGHT))
 
 
 one = paddle(screen,WIDTH-SPACING-P_WIDTH,HEIGHT/2-P_LENGTH/2,HEIGHT,P_WIDTH,'one',P_SPEED)
-red = [ Train((50 * i, 255 ,0), screen,SPACING,random.randint(0, HEIGHT),P_LENGTH,P_WIDTH,'two',P_SPEED) for i in range(5) ]
+red = [ Train((random.randint(0,255), random.randint(0,255) ,random.randint(0,255)), screen,SPACING,random.randint(0, HEIGHT),P_LENGTH,P_WIDTH,'two',P_SPEED) for i in range(5) ]
 new_lst = []
 for r in red:
 	r.one = one
