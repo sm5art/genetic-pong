@@ -1,9 +1,10 @@
 import numpy as np
+import random
 
 """
 fitness = # num of times it bounces
 A chromosome which expresses a possible solution to the problem as a string
-A fitness function which takes a chromosome as input and returns a higher value for better solutions
+A fitness function which takes a chromosome as input and returns a higher value for better solutions (much more likely to reproduce)
 A population which is just a set of many chromosomes
 A selection method which determines how parents are selected for breeding from the population
 A crossover operation which determines how parents combine to produce offspring
@@ -27,6 +28,52 @@ A mutation operation which determines how random deviations manifest themselves
 def forward_model(A, x):
     return np.tanh(np.dot(A, x))
 
-def random_weights(n):
-    ran = np.random.rand(n)
-    return ran * 2 - 1
+class Gene(object):
+    n = 8
+    weight_min = -1
+    weight_max = 1
+    def __init__(self, alleles=None):
+        if alleles:
+            self.alleles = alleles
+        else:
+            self.alleles = [random.randint(0, 1) for i in range(3*Gene.n)]
+    
+    def numpy_values(self):
+        vals = []
+        for i in range(3):
+            vals.append(int("".join([str(g) for g in self.alleles[i*Gene.n:(i+1)*Gene.n]]), 2)*(Gene.weight_max-Gene.weight_min)/256 + Gene.weight_min)
+        return np.array(vals)
+
+    # default chance of mutation is 5%
+    def _mutate(self, alleles, chance=0.05):
+        new_alleles = []
+        for i in range(3*Gene.n):
+            if random.random() < chance and i % Gene.n != 0:
+                stored = new_alleles.pop()
+                new_alleles.append(alleles[i])
+                new_alleles.append(stored)
+            else:
+                new_alleles.append(alleles[i])
+        return new_alleles
+
+
+
+    def _crossover(self, other):
+        alleles = []
+        for i in range(3*Gene.n):
+            if random.randint(0, 1) > 0:
+                alleles.append(self.alleles[i])
+            else:
+                alleles.append(other.alleles[i])
+        alleles = self._mutate(alleles)
+        return Gene(alleles=alleles)
+
+    #returns list of children (Gene object)
+    def crossover(self, other, n_children=10):
+        lst = []
+        for i in range(n_children):
+            lst.append(self._crossover(other))
+        return lst
+
+
+    
