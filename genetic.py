@@ -10,20 +10,23 @@ A crossover operation which determines how parents combine to produce offspring
 A mutation operation which determines how random deviations manifest themselves
 """
 
-#state = ( delta_y_ball/delta_x_ball 
-#           (y_ball-y_paddle)/height
-#                   y_paddle          )
+#state = ( delta_y_ball/delta_x_ball                 range: (-1 to 1)
+#           (y_ball-y_paddle)/height                 range: (-1 to 1)
+#                   y_paddle/height                  range (0 to 1)    )
 
 #output = # -1 0 1 scalar which way to go
 
 #linear model 
 # tanh(A*inputs) = output
-# (1x6) * (6x1) = (1x1)
-# A = (a1 a2 a3)
+# (1x3) * (3x1) = (1x1)
+# A = (a1 a2 a3) lets create a linear constraint where a has a possible value between (-1 to 1)
 
 #inital population is randomly generated A's
 #we then run through each one calculate fitness
 
+def forward_model(A, x):
+    return np.tanh(np.dot(A, x))
 
-class GeneticAlgo(object):
-    def __init__(self):
+def random_weights(n):
+    ran = np.random.rand(n)
+    return ran * 2 - 1

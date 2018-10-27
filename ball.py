@@ -11,7 +11,7 @@ HEIGHT = 525
 
 class Ball(object):
 	
-	def __init__(self, screen,x,y,size,x_speed,y_speed):
+	def __init__(self, screen,x,y,size,x_speed,y_speed, color):
 		
 		self.screen = screen
 		self.x = x
@@ -19,6 +19,7 @@ class Ball(object):
 		self.size = size
 		self.x_speed = x_speed
 		self.y_speed = y_speed
+		self.color = color
 
 	def move(self):
 		self.x+=self.x_speed
@@ -30,8 +31,10 @@ class Ball(object):
 
 
 
+		self._draw()
 
-		pygame.draw.rect(self.screen,(255,255,255),[self.x,self.y,self.size,self.size])
+	def _draw(self):
+		pygame.draw.rect(self.screen, self.color,[self.x,self.y,self.size,self.size])
 
 	def bounce(self,speed,angle,padd):
 		relativeY = (padd.y+(padd.length/2)) - self.y+self.size/2
