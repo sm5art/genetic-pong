@@ -3,6 +3,7 @@ from pygame.locals import*
 from paddle_object import paddle
 from ball import Ball
 import random
+import pandas as pd
 import math
 pygame.init()
 
@@ -17,9 +18,13 @@ MAXBOUNCEANGLE = math.pi/4
 MAXSPEED = 10
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 
-one = paddle(screen,WIDTH-SPACING-P_WIDTH,HEIGHT/2-P_LENGTH/2,P_LENGTH,P_WIDTH,'one',P_SPEED)
-two = paddle(screen,SPACING,HEIGHT/2-P_LENGTH/2,P_LENGTH,P_WIDTH,'two',P_SPEED)
-ball = Ball(screen,WIDTH/2,HEIGHT/2,20,50,50)
+gen = pd.read_csv('gen15.csv')
+a = gen.sort_values('fitness').iloc[-1][['a1', 'a2', 'a3', 'a4', 'a5']]
+print("USING WEIGHTS")
+print(a)
+two = paddle(screen,WIDTH-SPACING-P_WIDTH,HEIGHT/2-P_LENGTH/2,P_LENGTH,P_WIDTH,'two',P_SPEED, weights=a)
+one = paddle(screen,SPACING,HEIGHT/2-P_LENGTH/2,P_LENGTH,P_WIDTH,'one',P_SPEED)
+ball = Ball(screen,WIDTH/2,HEIGHT/2,20, 50,50, color=(255,255,255))
 
 
 
@@ -87,8 +92,8 @@ def play():
 			if i%25 == 0:
 				pygame.draw.rect(screen,(255,255,255),(WIDTH/2-2,i,4,10))
 		
-		two.move_kb()
-		one.move_ai(ball)
+		one.move_kb()
+		two.move_ai(ball)
 		"""if random.randint(0,1) == 0:
 			one._move_up()
 		else:

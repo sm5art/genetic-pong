@@ -16,7 +16,7 @@ class Train(object):
     def __init__(self, color, screen,x,y,length,width,player,speed, gene=None):
         self.color = color
         self.paddle = paddle(screen,x,y,length,width,player,speed)
-        self.ball = Ball(screen,WIDTH/2,HEIGHT/2,20,50,50, color)
+        self.ball = Ball(screen,WIDTH/2,HEIGHT/2,20,5,random.randint(-5, 5), color)
         self.dead = False
         self.fitness = 0
         if gene:
@@ -27,9 +27,9 @@ class Train(object):
             self.A = self.g.numpy_values()
 
     def move(self, decision):
-        if decision > 0.1:
+        if decision > 0.0:
             self.paddle._move_up()
-        elif decision < -0.1:
+        elif decision < 0.0:
             self.paddle._move_down()
         self.paddle._draw(color=self.color)
 
@@ -51,8 +51,6 @@ class Train(object):
             self.ball.bounce(MAXSPEED,MAXBOUNCEANGLE, paddle)
             return True
         return False
-
-
 
     def reset(self):
         self.ball.x = WIDTH/2

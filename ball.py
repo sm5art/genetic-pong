@@ -29,13 +29,12 @@ class Ball(object):
 	
 			self.y_speed = -self.y_speed
 
-
-
 		self._draw()
 
 	def _draw(self):
 		pygame.draw.rect(self.screen, self.color,[self.x,self.y,self.size,self.size])
 
+	# TODO: FIX THIS TOMOOROOW
 	def bounce(self,speed,angle,padd):
 		relativeY = (padd.y+(padd.length/2)) - self.y+self.size/2
 		normalizedY = (relativeY / (padd.length / 2))

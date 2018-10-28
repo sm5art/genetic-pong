@@ -1,4 +1,5 @@
 from train import Train
+import pandas as pd
 import random
 
 WIDTH = 858
@@ -51,6 +52,8 @@ class Generation(object):
             self.dead = True
             for paddle in self.train_paddles:
                 print(paddle.fitness)
+            if self.generation % 5 == 0:
+                pd.DataFrame([list(paddle.A) + [paddle.fitness] for paddle in self.train_paddles], columns=["a1", "a2", "a3", "a4", "a5", "fitness"]).to_csv("gen%d.csv"%self.generation)
             self.selection()
 
     # this method returns a new generation of those who had the best fitness of the dead paddles
