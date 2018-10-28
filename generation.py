@@ -32,7 +32,7 @@ class Generation(object):
             for i in range(self.P):
                 color = [100, 100, 100]
                 mod = i%3
-                color[mod] = 5*i
+                color[mod] = i
                 a = Train(color, self.screen,SPACING,HEIGHT/2,P_LENGTH,P_WIDTH,'two',P_SPEED)
                 a.one = self.right_paddle
                 self.train_paddles.append(a)
