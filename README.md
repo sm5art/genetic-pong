@@ -1,5 +1,5 @@
 # genetic pong game
-This project is an application of evolutionary theory to convergence of a solution. 
+This project is an application of evolutionary theory to convergence of a solution. This repository contains a game which 
 
 The AI works like this
 1. We have a model that looks like this output (go up down or stay neutral) = tanh(A*inputs)
@@ -21,6 +21,15 @@ The AI works like this
 1. numpy
 2. pygame
 
+# Running the code
+
+~~~
+python pong_test.py
+~~~
+
+# References
+
+Special thanks to [link](https://github.com/Sarthak-Rijal/goodpong "Sarthak Rijal original game code")
 
 # MIT LICENSE
 Copyright 2018 Artur Kashperskiy
