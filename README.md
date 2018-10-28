@@ -1,5 +1,5 @@
 # genetic pong game
-This project is an application of evolutionary theory to convergence of a solution. This repository contains a game which 
+This project is an application of evolutionary theory to convergence of a solution. This repository contains a game which learns to play pong unsupervised through simulation of evolution.
 
 The AI works like this
 1. We have a model that looks like this output (go up down or stay neutral) = tanh(A*inputs)
