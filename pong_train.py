@@ -20,6 +20,7 @@ screen = pygame.display.set_mode((WIDTH,HEIGHT))
 
 
 one = paddle(screen,WIDTH-SPACING-P_WIDTH,HEIGHT/2-P_LENGTH/2,HEIGHT,P_WIDTH,'one',P_SPEED)
+red = [ Train((random.randint(0,255), random.randint(0,255) ,random.randint(0,255)), screen,SPACING,random.randint(0, HEIGHT),P_LENGTH,P_WIDTH,'two',P_SPEED) for i in range(5) ]
 new_lst = []
 for i in range(10):
 	color = [100, 100, 100]
