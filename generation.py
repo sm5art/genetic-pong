@@ -67,7 +67,7 @@ class Generation(object):
         for i in range(top_n):
             myself = self.train_paddles[fit_list.pop()[0]].g
             mate = self.train_paddles[fit_list.pop()[0]].g
-            son = myself.crossover(mate, n_children=10) # woah calm down there assuming genders
+            son = myself.crossover(mate, n_children=20) # woah calm down there assuming genders
             new_generation += son
         self.init(genes=new_generation)
 
