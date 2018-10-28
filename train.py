@@ -43,7 +43,7 @@ class Train(object):
         if self.check_collision(self.paddle):
             self.fitness += 1
         self.check_collision(self.one)
-        X = prepare_features(self.ball.x_speed, self.ball.y_speed, self.ball.y, self.paddle.y)
+        X = prepare_features(self.ball.x_speed, self.ball.y_speed, self.ball.y, self.paddle.y, self.ball.x)
         self.move(forward_model(self.A, X))
 
     def check_collision(self, paddle):
@@ -60,6 +60,6 @@ class Train(object):
         self.ball.x_speed = 5
         self.ball.y_speed = random.choice([-5,5])
 
-def prepare_features(ball_dx, ball_dy, y_ball, y_paddle):
-    return np.array([ball_dy/ball_dx, (y_ball-y_paddle)/HEIGHT, y_paddle/HEIGHT])
+def prepare_features(ball_dx, ball_dy, y_ball, y_paddle, x_ball):
+    return np.array([ball_dy/MAXSPEED, ball_dx/MAXSPEED, (y_ball-y_paddle)/HEIGHT, y_paddle/HEIGHT, x_ball/WIDTH])
         

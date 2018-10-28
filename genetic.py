@@ -13,14 +13,15 @@ A mutation operation which determines how random deviations manifest themselves
 
 #state = ( delta_y_ball/delta_x_ball                 range: (-1 to 1)
 #           (y_ball-y_paddle)/height                 range: (-1 to 1)
-#                   y_paddle/height                  range (0 to 1)    )
+#                   y_paddle/height                  range (0 to 1)    
+#             x_ball/width                           range (0 to 1))
 
 #output = # -1 0 1 scalar which way to go
 
 #linear model 
 # tanh(A*inputs) = output
-# (1x3) * (3x1) = (1x1)
-# A = (a1 a2 a3) lets create a linear constraint where a has a possible value between (-1 to 1)
+# (1x4) * (4x1) = (1x1)
+# A = (a1 a2 a3 a4) lets create a linear constraint where a has a possible value between (-1 to 1)
 
 #inital population is randomly generated A's
 #we then run through each one calculate fitness
@@ -30,24 +31,25 @@ def forward_model(A, x):
 
 class Gene(object):
     n = 8
+    var = 5
     weight_min = -1
     weight_max = 1
     def __init__(self, alleles=None):
         if alleles:
             self.alleles = alleles
         else:
-            self.alleles = [random.randint(0, 1) for i in range(3*Gene.n)]
+            self.alleles = [random.randint(0, 1) for i in range(Gene.var*Gene.n)]
     
     def numpy_values(self):
         vals = []
-        for i in range(3):
-            vals.append(int("".join([str(g) for g in self.alleles[i*Gene.n:(i+1)*Gene.n]]), 2)*(Gene.weight_max-Gene.weight_min)/256 + Gene.weight_min)
+        for i in range(Gene.var):
+            vals.append(int("".join([str(g) for g in self.alleles[i*Gene.n:(i+1)*Gene.n]]), 2)*(Gene.weight_max-Gene.weight_min)/2**Gene.n + Gene.weight_min)
         return np.array(vals)
 
-    # default chance of mutation is 10%
-    def _mutate(self, alleles, chance=0.10):
+    # default chance of mutation is 1%
+    def _mutate(self, alleles, chance=0.05):
         new_alleles = []
-        for i in range(3*Gene.n):
+        for i in range(Gene.var*Gene.n):
             if random.random() < chance and i % Gene.n != 0:
                 stored = new_alleles.pop()
                 new_alleles.append(alleles[i])
@@ -60,7 +62,7 @@ class Gene(object):
 
     def _crossover(self, other):
         alleles = []
-        for i in range(3*Gene.n):
+        for i in range(Gene.var*Gene.n):
             if random.randint(0, 1) > 0:
                 alleles.append(self.alleles[i])
             else:

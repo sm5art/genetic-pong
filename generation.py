@@ -61,7 +61,7 @@ class Generation(object):
         new_generation = []
         fitness = [(i, paddle.fitness) for i, paddle in enumerate(self.train_paddles)]
         fitness = sorted(fitness, key=lambda x: x[1])
-        fit_list = fitness[-25:]
+        fit_list = fitness[-10:]
         random.shuffle(fit_list)
         top_n = 5
         for i in range(top_n):
