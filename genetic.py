@@ -44,8 +44,8 @@ class Gene(object):
             vals.append(int("".join([str(g) for g in self.alleles[i*Gene.n:(i+1)*Gene.n]]), 2)*(Gene.weight_max-Gene.weight_min)/256 + Gene.weight_min)
         return np.array(vals)
 
-    # default chance of mutation is 5%
-    def _mutate(self, alleles, chance=0.05):
+    # default chance of mutation is 10%
+    def _mutate(self, alleles, chance=0.10):
         new_alleles = []
         for i in range(3*Gene.n):
             if random.random() < chance and i % Gene.n != 0:
@@ -69,7 +69,7 @@ class Gene(object):
         return Gene(alleles=alleles)
 
     #returns list of children (Gene object)
-    def crossover(self, other, n_children=10):
+    def crossover(self, other, n_children=50):
         lst = []
         for i in range(n_children):
             lst.append(self._crossover(other))

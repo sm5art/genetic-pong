@@ -12,15 +12,30 @@ class Generation(object):
     def __init__(self, initial_population, right_paddle, screen):
         self.P = initial_population
         self.right_paddle = right_paddle
+        self.screen = screen
+        self.generation = 0
+        self.init()
+
+    def init(self, genes=None):
         self.train_paddles = []
         self.dead = False
-        for i in range(self.P):
-            color = [100, 100, 100]
-            mod = i%3
-            color[mod] = 5*i
-            a = Train(color, screen,SPACING,random.randint(0, HEIGHT),P_LENGTH,P_WIDTH,'two',P_SPEED)
-            a.one = right_paddle
-            self.train_paddles.append(a)
+        self.generation += 1
+        if genes:
+            for i in range(len(genes)):
+                color = [100, 100, 100]
+                mod = i%3
+                color[mod] = i
+                a = Train(color, self.screen,SPACING,HEIGHT/2,P_LENGTH,P_WIDTH,'two',P_SPEED, gene=genes[i])
+                a.one = self.right_paddle
+                self.train_paddles.append(a)
+        else:
+            for i in range(self.P):
+                color = [100, 100, 100]
+                mod = i%3
+                color[mod] = 5*i
+                a = Train(color, self.screen,SPACING,HEIGHT/2,P_LENGTH,P_WIDTH,'two',P_SPEED)
+                a.one = self.right_paddle
+                self.train_paddles.append(a)
 
 
     def on_update(self):
@@ -36,7 +51,25 @@ class Generation(object):
             self.dead = True
             for paddle in self.train_paddles:
                 print(paddle.fitness)
+            self.selection()
 
     # this method returns a new generation of those who had the best fitness of the dead paddles
     # it choses the highest two fitness scores and crossbreeds these two
-    #def selection(self):
+    def selection(self):
+        if not self.dead:
+            return
+        new_generation = []
+        fitness = [(i, paddle.fitness) for i, paddle in enumerate(self.train_paddles)]
+        fitness = sorted(fitness, key=lambda x: x[1])
+        fit_list = fitness[-25:]
+        random.shuffle(fit_list)
+        top_n = 5
+        for i in range(top_n):
+            myself = self.train_paddles[fit_list.pop()[0]].g
+            mate = self.train_paddles[fit_list.pop()[0]].g
+            son = myself.crossover(mate, n_children=10) # woah calm down there assuming genders
+            new_generation += son
+        self.init(genes=new_generation)
+
+
+

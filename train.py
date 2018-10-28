@@ -13,17 +13,18 @@ WIDTH = 858
 HEIGHT = 525
 
 class Train(object):
-    def __init__(self, color, screen,x,y,length,width,player,speed, weights=None):
+    def __init__(self, color, screen,x,y,length,width,player,speed, gene=None):
         self.color = color
         self.paddle = paddle(screen,x,y,length,width,player,speed)
         self.ball = Ball(screen,WIDTH/2,HEIGHT/2,20,50,50, color)
         self.dead = False
         self.fitness = 0
-        if weights:
-            self.A = weights
+        if gene:
+            self.g = gene
+            self.A = self.g.numpy_values()
         else:
-            g = Gene()
-            self.A = g.numpy_values()
+            self.g = Gene()
+            self.A = self.g.numpy_values()
 
     def move(self, decision):
         if decision > 0.5:

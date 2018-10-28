@@ -89,7 +89,7 @@ def play():
 		one._draw()
 
 
-		print_f(str(one_pt),100,(255,255,255),WIDTH/4,150)
+		print_f(str(gen.generation),100,(255,255,255),WIDTH/4,150)
 		#print_f(str(two_pt),100,(255,255,255),WIDTH/2 + WIDTH/4,150)
 
 
