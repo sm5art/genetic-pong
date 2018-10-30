@@ -25,7 +25,7 @@ class Generation(object):
             for i in range(len(genes)):
                 color = [100, 100, 100]
                 mod = i%3
-                color[mod] = i
+                color[mod] = i % 255
                 a = Train(color, self.screen,SPACING,HEIGHT/2,P_LENGTH,P_WIDTH,'two',P_SPEED, gene=genes[i])
                 a.one = self.right_paddle
                 self.train_paddles.append(a)
@@ -33,10 +33,13 @@ class Generation(object):
             for i in range(self.P):
                 color = [100, 100, 100]
                 mod = i%3
-                color[mod] = i
+                color[mod] = i % 255
                 a = Train(color, self.screen,SPACING,HEIGHT/2,P_LENGTH,P_WIDTH,'two',P_SPEED)
                 a.one = self.right_paddle
                 self.train_paddles.append(a)
+
+    def save_parameters(self, filename):
+        pd.DataFrame([list(paddle.A) + [paddle.fitness] for paddle in self.train_paddles], columns=["a1", "a2", "a3", "a4", "fitness"]).to_csv(filename)
 
 
     def on_update(self):
@@ -47,13 +50,15 @@ class Generation(object):
             if not paddle.dead:
                 i += 1
                 paddle.on_update()
+                if paddle.fitness > 20:
+                    self.save_parameters("fitted.csv")
         # all paddles died
         if i == 0:
             self.dead = True
-            for paddle in self.train_paddles:
-                print(paddle.fitness)
+            #for paddle in self.train_paddles:
+                #print(paddle.fitness)
             if self.generation % 5 == 0:
-                pd.DataFrame([list(paddle.A) + [paddle.fitness] for paddle in self.train_paddles], columns=["a1", "a2", "a3", "a4", "a5", "fitness"]).to_csv("gen%d.csv"%self.generation)
+                self.save_parameters("gen%d.csv" % self.generation)
             self.selection()
 
     # this method returns a new generation of those who had the best fitness of the dead paddles
@@ -64,13 +69,13 @@ class Generation(object):
         new_generation = []
         fitness = [(i, paddle.fitness) for i, paddle in enumerate(self.train_paddles)]
         fitness = sorted(fitness, key=lambda x: x[1])
-        fit_list = fitness[-10:]
+        fit_list = fitness[-50:]
         random.shuffle(fit_list)
-        top_n = 5
+        top_n = 25
         for i in range(top_n):
             myself = self.train_paddles[fit_list.pop()[0]].g
             mate = self.train_paddles[fit_list.pop()[0]].g
-            son = myself.crossover(mate, n_children=20) # woah calm down there assuming genders
+            son = myself.crossover(mate, n_children=10) # woah calm down there assuming genders
             new_generation += son
         self.init(genes=new_generation)
 

@@ -15,14 +15,14 @@ P_LENGTH = 100
 P_WIDTH = 15
 P_SPEED = 10
 MAXBOUNCEANGLE = math.pi/4
-MAXSPEED = 10
+MAXSPEED = 15
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
-
-gen = pd.read_csv('gen15.csv')
-a = gen.sort_values('fitness').iloc[-1][['a1', 'a2', 'a3', 'a4', 'a5']]
+pd.set_option('float_format', '{:.35f}'.format)
+gen = pd.read_csv('fitted.csv')
+a = gen.sort_values('fitness').iloc[-1][['a1', 'a2', 'a3', 'a4']]
 print("USING WEIGHTS")
 print(a)
-two = paddle(screen,WIDTH-SPACING-P_WIDTH,HEIGHT/2-P_LENGTH/2,P_LENGTH,P_WIDTH,'two',P_SPEED, weights=a)
+two = paddle(screen,WIDTH-SPACING-P_WIDTH,HEIGHT/2,P_LENGTH,P_WIDTH,'two',P_SPEED, weights=a)
 one = paddle(screen,SPACING,HEIGHT/2-P_LENGTH/2,P_LENGTH,P_WIDTH,'one',P_SPEED)
 ball = Ball(screen,WIDTH/2,HEIGHT/2,20, 50,50, color=(255,255,255))
 
@@ -60,7 +60,7 @@ def reset(x,bool):
 		one.x=WIDTH-SPACING-P_WIDTH
 		two.x=SPACING
 		one.y=HEIGHT/2-P_LENGTH/2
-		two.y=HEIGHT/2-P_LENGTH/2
+		two.y=HEIGHT/2
 
 def win(player):
     color1 =  (100, 100, 100)
@@ -106,13 +106,13 @@ def play():
 		if (ball.x <= 0):
 			two_score.play()
 			two_pt+=1
-			reset(False,False)
+			reset(False,True)
 
 		#if ball touches right wall
 		if (ball.x+ball.size >= WIDTH):
 			one_score.play()
 			one_pt+=1
-			reset(False,False)  
+			reset(False,True)  
 		
 
 		if (one_pt == 10):
