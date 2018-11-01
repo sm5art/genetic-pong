@@ -30,7 +30,7 @@ def forward_model(A, x):
     return np.tanh(np.dot(A, x))
 
 class Gene(object):
-    n = 16
+    n = 4
     var = 4
     weight_min = -1
     weight_max = 1

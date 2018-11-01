@@ -50,7 +50,7 @@ class Generation(object):
             if not paddle.dead:
                 i += 1
                 paddle.on_update()
-                if paddle.fitness > 20:
+                if paddle.fitness > 40:
                     self.save_parameters("fitted.csv")
         # all paddles died
         if i == 0:
@@ -69,13 +69,13 @@ class Generation(object):
         new_generation = []
         fitness = [(i, paddle.fitness) for i, paddle in enumerate(self.train_paddles)]
         fitness = sorted(fitness, key=lambda x: x[1])
-        fit_list = fitness[-50:]
+        fit_list = fitness[-100:]
         random.shuffle(fit_list)
-        top_n = 25
+        top_n = 50
         for i in range(top_n):
             myself = self.train_paddles[fit_list.pop()[0]].g
             mate = self.train_paddles[fit_list.pop()[0]].g
-            son = myself.crossover(mate, n_children=10) # woah calm down there assuming genders
+            son = myself.crossover(mate, n_children=20) # woah calm down there assuming genders
             new_generation += son
         self.init(genes=new_generation)
 

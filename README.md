@@ -22,9 +22,14 @@ The AI works like this
 2. pygame
 
 # Running the code
-
+To train the bot
 ~~~
-python pong_test.py
+python pong_train.py
+~~~
+
+To play against your trained (comes with trained parameters the file is fitted.csv)
+~~~
+python pong.py
 ~~~
 
 # References
