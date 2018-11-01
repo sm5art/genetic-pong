@@ -19,7 +19,7 @@ MAXSPEED = 15
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 pd.set_option('float_format', '{:.35f}'.format)
 gen = pd.read_csv('fitted.csv')
-a = gen.sort_values('fitness').iloc[-1][['a1', 'a2', 'a3', 'a4']]
+a = gen.sort_values('fitness').iloc[-1][['a1', 'a2', 'a3', 'a4', 'C']]
 print("USING WEIGHTS")
 print(a)
 two = paddle(screen,WIDTH-SPACING-P_WIDTH,HEIGHT/2,P_LENGTH,P_WIDTH,'two',P_SPEED, weights=a)

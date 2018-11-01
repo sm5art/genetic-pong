@@ -7,8 +7,8 @@ WIDTH = 858
 HEIGHT = 525
 MAXSPEED = 10
 
-def forward_model(A, x):
-    return np.tanh(np.dot(A, x))
+def forward_model(A, x, C):
+    return np.tanh(np.dot(A, x)+C)
 
 def prepare_features(ball_dx, ball_dy, y_ball, y_paddle):
     return np.array([ball_dy/MAXSPEED, ball_dx/MAXSPEED, (y_ball-y_paddle)/HEIGHT, y_paddle/HEIGHT])
@@ -51,7 +51,7 @@ class paddle(object):
 
     def move_ai(self, ball):
         X = prepare_features(ball.x_speed, ball.y_speed, ball.y, self.y)
-        decision = forward_model(self.weights, X)
+        decision = forward_model(self.weights[:4], X, self.weights[-1])
         if decision > 0:
             self._move_up()
         elif decision < 0:

@@ -44,7 +44,7 @@ class Train(object):
             self.fitness += 1
         self.check_collision(self.one, train=True)
         X = prepare_features(self.ball.x_speed, self.ball.y_speed, self.ball.y, self.paddle.y)
-        self.move(forward_model(self.A, X))
+        self.move(forward_model(self.A[:4], X, self.A[-1]))
 
     def check_collision(self, paddle, train=False):
         if self.ball.collide(pygame.Rect(paddle.x, paddle.y, paddle.width, paddle.length)):
