@@ -1,4 +1,8 @@
 import numpy as np
+from genetic import Gene
+
+input_size = Gene.input_size
+hidden_size = Gene.hidden_size
 
 def forward_model(A, x, C):
     return np.tanh(np.dot(A, x)+C)
@@ -10,9 +14,9 @@ def nn(A, B, C, D, x):
 
 
 def format_weight_array(array):
-    A = np.array(array[:12]).reshape((3, 4))
-    B = np.array(array[12:15])
-    C = np.array(array[15:18])
-    D = np.array(array[18])
+    A = np.array(array[:hidden_size*input_size]).reshape((hidden_size, input_size))
+    B = np.array(array[hidden_size*input_size:hidden_size*(input_size+1)])
+    C = np.array(array[hidden_size*(input_size+1):hidden_size*(input_size+2)])
+    D = np.array(array[hidden_size*(input_size+2)])
     return A, B, C, D
 

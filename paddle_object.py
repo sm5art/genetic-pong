@@ -51,9 +51,9 @@ class paddle(object):
         X = prepare_features(ball.x_speed, ball.y_speed, ball.y, self.y)
         A, B, C, D = format_weight_array(self.weights)
         decision = nn(A, B, C, D, X)
-        if decision > 0.01:
+        if decision > 0:
             self._move_up()
-        elif decision < -0.01:
+        elif decision < 0:
             self._move_down()
         self._draw()
 

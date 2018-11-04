@@ -28,7 +28,9 @@ A mutation operation which determines how random deviations manifest themselves
 
 class Gene(object):
     n = 8
-    var = 19
+    hidden_size = 8
+    input_size = 4
+    var = input_size*hidden_size + 2*hidden_size + 1
     weight_min = -1
     weight_max = 1
     def __init__(self, alleles=None):
