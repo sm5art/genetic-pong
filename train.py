@@ -28,9 +28,9 @@ class Train(object):
             self.A = self.g.numpy_values()
 
     def move(self, decision):
-        if decision > 0.05:
+        if decision > 0.01:
             self.paddle._move_up()
-        elif decision < -0.05:
+        elif decision < -0.01:
             self.paddle._move_down()
         self.paddle._draw(color=self.color)
 
