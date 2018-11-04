@@ -1,5 +1,6 @@
 from paddle_object import paddle
-from genetic import Gene, forward_model
+from genetic import Gene
+from model import forward_model, nn, format_weight_array
 import numpy as np
 from ball import Ball
 import random
@@ -27,9 +28,9 @@ class Train(object):
             self.A = self.g.numpy_values()
 
     def move(self, decision):
-        if decision > 0:
+        if decision > 0.01:
             self.paddle._move_up()
-        elif decision < 0:
+        elif decision < -0.01:
             self.paddle._move_down()
         self.paddle._draw(color=self.color)
 
@@ -44,7 +45,8 @@ class Train(object):
             self.fitness += 1
         self.check_collision(self.one, train=True)
         X = prepare_features(self.ball.x_speed, self.ball.y_speed, self.ball.y, self.paddle.y)
-        self.move(forward_model(self.A[:4], X, self.A[-1]))
+        A, B, C, D = format_weight_array(self.A)
+        self.move(nn(A, B, C, D, X))
 
     def check_collision(self, paddle, train=False):
         if self.ball.collide(pygame.Rect(paddle.x, paddle.y, paddle.width, paddle.length)):
