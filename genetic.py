@@ -28,7 +28,7 @@ A mutation operation which determines how random deviations manifest themselves
 
 class Gene(object):
     n = 8
-    hidden_size = 8
+    hidden_size = 128
     input_size = 4
     var = input_size*hidden_size + 2*hidden_size + 1
     weight_min = -1

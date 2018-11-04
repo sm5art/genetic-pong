@@ -10,7 +10,7 @@ def forward_model(A, x, C):
 
 
 def nn(A, B, C, D, x):
-    return np.tanh(np.dot(C, np.matmul(A, x) + B) + D)
+    return np.tanh(np.dot(C, np.tanh(np.matmul(A, x) + B)) + D)
 
 
 def format_weight_array(array):

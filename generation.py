@@ -53,6 +53,8 @@ class Generation(object):
                 paddle.on_update()
                 if paddle.fitness > 40:
                     self.save_parameters("fitted.csv")
+                    self.dead = True
+                    self.selection()
         # all paddles died
         if i == 0:
             self.dead = True
