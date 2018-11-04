@@ -18,7 +18,7 @@ MAXBOUNCEANGLE = math.pi/4
 MAXSPEED = 15
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 pd.set_option('float_format', '{:.35f}'.format)
-gen = pd.read_csv('fitted.csv')
+gen = pd.read_csv('gen30.csv')
 a = gen.sort_values('fitness').iloc[-1][['a1', 'a2', 'a3', 'a4', 'C']]
 print("USING WEIGHTS")
 print(a)
