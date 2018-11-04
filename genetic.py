@@ -28,7 +28,7 @@ A mutation operation which determines how random deviations manifest themselves
 
 class Gene(object):
     n = 8
-    hidden_size = 128
+    hidden_size = 16
     input_size = 4
     var = input_size*hidden_size + 2*hidden_size + 1
     weight_min = -1
@@ -46,7 +46,7 @@ class Gene(object):
         return np.array(vals)
 
     # default chance of mutation is 1%
-    def _mutate(self, alleles, chance=0.05):
+    def _mutate(self, alleles, chance=0.01):
         new_alleles = []
         for i in range(Gene.var*Gene.n):
             if random.random() < chance and i % Gene.n != 0:

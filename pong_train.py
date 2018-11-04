@@ -21,7 +21,7 @@ screen = pygame.display.set_mode((WIDTH,HEIGHT))
 
 one = paddle(screen,WIDTH-SPACING-P_WIDTH,HEIGHT/2-P_LENGTH/2,HEIGHT,P_WIDTH,'one',P_SPEED)
 #new_lst = []
-gen = Generation(1000, one, screen)
+gen = Generation(3000, one, screen)
 """for i in range(10):
 	color = [100, 100, 100]
 	mod = i%3
