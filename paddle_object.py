@@ -24,6 +24,7 @@ class paddle(object):
         self.speed = speed
         if weights is not None:
             self.weights = np.array(weights)
+            self.A, self.B, self.C, self.D = format_weight_array(self.weights)
         else:
             weights = np.array([1, 1, 1, 1, 1])
         self.config = {'one': {'w': pygame.K_i, 's': pygame.K_k}, 'two': {'w':pygame.K_w, 's':pygame.K_s }}
@@ -49,11 +50,10 @@ class paddle(object):
 
     def move_ai(self, ball):
         X = prepare_features(ball.x_speed, ball.y_speed, ball.y, self.y)
-        A, B, C, D = format_weight_array(self.weights)
-        decision = nn(A, B, C, D, X)
-        if decision > 0:
+        decision = nn(self.A, self.B, self.C, self.D, X)
+        if decision > 0.1:
             self._move_up()
-        elif decision < 0:
+        elif decision < -0.1:
             self._move_down()
         self._draw()
 

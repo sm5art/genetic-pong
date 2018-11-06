@@ -36,7 +36,7 @@ gen = Generation(3000, one, screen)
 
 
 clock = pygame.time.Clock()
-FPS = 60
+FPS = 120
 
 bounce = False
 

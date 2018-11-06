@@ -22,15 +22,17 @@ class Train(object):
         self.fitness = 0
         if gene:
             self.g = gene
-            self.A = self.g.numpy_values()
+            self.F = self.g.numpy_values()
+            self.A, self.B, self.C, self.D = format_weight_array(self.F)
         else:
             self.g = Gene()
-            self.A = self.g.numpy_values()
+            self.F = self.g.numpy_values()
+            self.A, self.B, self.C, self.D = format_weight_array(self.F)
 
     def move(self, decision):
-        if decision > 0:
+        if decision > 0.1:
             self.paddle._move_up()
-        elif decision < 0:
+        elif decision < -0.1:
             self.paddle._move_down()
         self.paddle._draw(color=self.color)
 
@@ -45,8 +47,7 @@ class Train(object):
             self.fitness += 1
         self.check_collision(self.one, train=True)
         X = prepare_features(self.ball.x_speed, self.ball.y_speed, self.ball.y, self.paddle.y)
-        A, B, C, D = format_weight_array(self.A)
-        self.move(nn(A, B, C, D, X))
+        self.move(nn(self.A, self.B, self.C, self.D, X))
 
     def check_collision(self, paddle, train=False):
         if self.ball.collide(pygame.Rect(paddle.x, paddle.y, paddle.width, paddle.length)):

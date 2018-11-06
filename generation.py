@@ -40,7 +40,7 @@ class Generation(object):
                 self.train_paddles.append(a)
 
     def save_parameters(self, filename):
-        pd.DataFrame([list(paddle.A) + [paddle.fitness] for paddle in self.train_paddles], columns=["n%d" % i for i in range(Gene.var)]+["fitness"]).to_csv(filename)
+        pd.DataFrame([list(paddle.F) + [paddle.fitness] for paddle in self.train_paddles], columns=["n%d" % i for i in range(Gene.var)]+["fitness"]).to_csv(filename)
 
 
     def on_update(self):

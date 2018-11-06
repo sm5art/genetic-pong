@@ -27,7 +27,7 @@ A mutation operation which determines how random deviations manifest themselves
 #we then run through each one calculate fitness
 
 class Gene(object):
-    n = 8
+    n = 8 
     hidden_size = 16
     input_size = 4
     var = input_size*hidden_size + 2*hidden_size + 1
@@ -38,7 +38,7 @@ class Gene(object):
             self.alleles = alleles
         else:
             self.alleles = [random.randint(0, 1) for i in range(Gene.var*Gene.n)]
-    
+
     def numpy_values(self):
         vals = []
         for i in range(Gene.var):
