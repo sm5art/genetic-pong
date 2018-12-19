@@ -72,9 +72,10 @@ class Generation(object):
         new_generation = []
         fitness = [(i, paddle.fitness) for i, paddle in enumerate(self.train_paddles)]
         fitness = sorted(fitness, key=lambda x: x[1])
-        fit_list = fitness[-100:]
+        top_n_n = 40
+        fit_list = fitness[-top_n_n:]
         random.shuffle(fit_list)
-        top_n = 50
+        top_n = top_n_n//2
         for i in range(top_n):
             myself = self.train_paddles[fit_list.pop()[0]].g
             mate = self.train_paddles[fit_list.pop()[0]].g
