@@ -23,7 +23,7 @@ gen = pd.read_csv('fitted.csv')
 a = gen.mean()[['n%d' % i for i in range(Gene.var)]]
 print("USING WEIGHTS")
 print(a)
-two = paddle(screen,WIDTH-SPACING-P_WIDTH,HEIGHT/2,P_LENGTH,P_WIDTH,'two',P_SPEED, weights=a)
+two = paddle(screen,WIDTH-SPACING-P_WIDTH,HEIGHT/2,50,P_WIDTH,'two',P_SPEED, weights=a)
 one = paddle(screen,SPACING,HEIGHT/2-P_LENGTH/2,P_LENGTH,P_WIDTH,'one',P_SPEED)
 ball = Ball(screen,WIDTH/2,HEIGHT/2,20, 50,50, color=(255,255,255))
 

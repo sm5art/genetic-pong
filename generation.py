@@ -6,7 +6,7 @@ import random
 WIDTH = 858
 HEIGHT = 525
 SPACING = 25
-P_LENGTH = 100
+P_LENGTH = 50
 P_WIDTH = 15
 P_SPEED = 10
 
