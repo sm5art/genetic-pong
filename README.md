@@ -31,6 +31,9 @@ To play against your trained (comes with trained parameters the file is fitted.c
 ~~~
 python pong.py
 ~~~
+# TODO
+1. COLLECT SOME DATA FOR BLOG POST ON TRAINING
+2. GO THROUGH CODE AND TAKE NOTES ON STRUCTURE/THEORY
 
 # References
 
