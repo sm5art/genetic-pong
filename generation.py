@@ -9,7 +9,15 @@ SPACING = 25
 P_LENGTH = 50
 P_WIDTH = 15
 P_SPEED = 10
+"""
+The Generation class contains a class used keep track of the current generation of the training sequence of paddles. 
+The Generation class assumes that you setup the training conditions such that you have one large right paddle that fills up the screen.
 
+
+Params:
+    initial_population (int) - the starting size of your generation 1 paddles
+
+"""
 class Generation(object):
     def __init__(self, initial_population, right_paddle, screen):
         self.P = initial_population

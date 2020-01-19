@@ -25,12 +25,16 @@ A mutation operation which determines how random deviations manifest themselves
 
 #inital population is randomly generated A's
 #we then run through each one calculate fitness
-
+"""
+Gene class contains a class to represent a pong paddle's alleles and to easily convert them 
+to decimal numbers so that you can use the values in inference as well as in training the algo
+w/ crossover and mutation.
+"""
 class Gene(object):
-    n = 8 
-    hidden_size = 16
-    input_size = 4
-    var = input_size*hidden_size + 2*hidden_size + 1
+    n = 8 # how many alleles should I use to represent one number 
+    hidden_size = 16 # how many hidden layer you want, positively correlated w/ size of allele
+    input_size = 4 # how many inputs there are, positively correlated w/ size of allele
+    var = input_size*hidden_size + 2*hidden_size + 1 # total number of variables to account for based on NN model
     weight_min = -1
     weight_max = 1
     def __init__(self, alleles=None):
@@ -39,10 +43,14 @@ class Gene(object):
         else:
             self.alleles = [random.randint(0, 1) for i in range(Gene.var*Gene.n)]
 
+    # get decimal number array of length var from binary allele representation
     def numpy_values(self):
         vals = []
-        for i in range(Gene.var):
-            vals.append(int("".join([str(g) for g in self.alleles[i*Gene.n:(i+1)*Gene.n]]), 2)*(Gene.weight_max-Gene.weight_min)/2**Gene.n + Gene.weight_min)
+        for i in range(Gene.var): # the next line looks really complicated but all it does is convert to binary
+            vals.append(          # and then normalize between weight_min and weight_max
+                int("".join(
+                    [str(g) for g in self.alleles[i*Gene.n:(i+1)*Gene.n]]), 2) 
+                * (Gene.weight_max-Gene.weight_min)/2**Gene.n + Gene.weight_min )
         return np.array(vals)
 
     # default chance of mutation is 1%
@@ -70,6 +78,8 @@ class Gene(object):
         return Gene(alleles=alleles)
 
     #returns list of children (Gene object)
+    # crossover will create crossover with the self and other for a total of n_children times 
+    # returns a list of Genes in size n_children
     def crossover(self, other, n_children=50):
         lst = []
         for i in range(n_children):

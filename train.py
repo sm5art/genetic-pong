@@ -13,6 +13,11 @@ MAXSPEED = 15
 WIDTH = 858
 HEIGHT = 525
 
+"""
+The train class is a class that represents an instance of the paddles used in the training sequence.
+The argument to look closely at in the context of the algorithim is the gene Variable which will contain
+the information that represents the behavior of that paddle.
+"""
 class Train(object):
     def __init__(self, color, screen,x,y,length,width,player,speed, gene=None):
         self.color = color
