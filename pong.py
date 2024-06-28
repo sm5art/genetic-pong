@@ -86,13 +86,13 @@ def play():
 				pygame.quit()
 				sys.exit()
 
-		
+
 		screen.fill((0,0,0))
 		#draw stripes
 		for i in range(HEIGHT):
 			if i%25 == 0:
 				pygame.draw.rect(screen,(255,255,255),(WIDTH/2-2,i,4,10))
-		
+
 		one.move_kb()
 		two.move_ai(ball)
 		"""if random.randint(0,1) == 0:
@@ -102,7 +102,7 @@ def play():
 		one._draw()"""
 		ball.move()
 
-		
+
 		#if ball touches left wall
 		if (ball.x <= 0):
 			two_score.play()
@@ -113,8 +113,8 @@ def play():
 		if (ball.x+ball.size >= WIDTH):
 			one_score.play()
 			one_pt+=1
-			reset(False,True)  
-		
+			reset(False,True)
+
 
 		if (one_pt == 10):
 			win("Player 1")
@@ -122,20 +122,20 @@ def play():
 			win("Player 2")
 
 
-		
-			
-		#collisions	
+
+
+		#collisions
 		if ball.collide(pygame.Rect(one.x,one.y,one.width,one.length)):
 			one_sound.play()
 			ball.bounce(MAXSPEED,MAXBOUNCEANGLE,one)
-			
+
 			#ball.bounce(ball_v,"one")
 			#ball.bounce_normal(808,ball_v,one)
 
 		elif ball.collide(pygame.Rect(two.x,two.y,two.width,two.length)):
 			two_sound.play()
 			ball.bounce(MAXSPEED,MAXBOUNCEANGLE,two)
-		
+
 		print_f(str(one_pt),100,(255,255,255),WIDTH/4,150)
 		print_f(str(two_pt),100,(255,255,255),WIDTH/2 + WIDTH/4,150)
 
